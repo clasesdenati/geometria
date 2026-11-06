@@ -1,0 +1,265 @@
+<title>Geometría y Medición EMS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: hoja de cuaderno cuadriculado, una columna de lectura con barra de progreso fija arriba. */
+:root{
+  --paper:#F5F8FC;
+  --card:#FFFFFF;
+  --ink:#16213A;
+  --muted:#586380;
+  --line:#D3DBE8;
+  --grid:#E4EBF5;
+  --accent:#1F4FD1;
+  --accent-soft:#E3EAFB;
+  --ok:#15764A;
+  --ok-soft:#DCF2E5;
+  --bad:#B3261E;
+  --bad-soft:#FBE2DF;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1424;--card:#161E33;--ink:#E7ECF7;--muted:#9AA6C2;--line:#2B3656;--grid:#182139;
+    --accent:#86A8FF;--accent-soft:#1F2D55;--ok:#62D49C;--ok-soft:#133A2A;--bad:#FF9088;--bad-soft:#42201E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1424;--card:#161E33;--ink:#E7ECF7;--muted:#9AA6C2;--line:#2B3656;--grid:#182139;
+  --accent:#86A8FF;--accent-soft:#1F2D55;--ok:#62D49C;--ok-soft:#133A2A;--bad:#FF9088;--bad-soft:#42201E;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.5;
+  padding-block:28px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:44rem;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2.1rem,7vw,3.2rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.35rem,4.5vw,1.7rem);font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.intro{display:flex;flex-direction:column;gap:12px}
+.lead{max-width:38rem;color:var(--ink)}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+summary{cursor:pointer;font-weight:600}
+summary:focus-visible,.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.ref{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:6px 24px;margin:12px 0 4px;padding:0;list-style:none;font-family:var(--mono);font-size:.84rem}
+.ref li{min-width:0}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+.stats{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:.84rem;font-variant-numeric:tabular-nums}
+.track{height:6px;border-radius:3px;background:var(--grid);overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);transition:width .25s ease}
+.block{display:flex;flex-direction:column;gap:14px}
+.bh{display:flex;flex-direction:column;gap:6px}
+.qs{display:flex;flex-direction:column;gap:14px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.qn{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.qt{font-size:1.06rem;max-width:36rem}
+.figbox{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px;display:flex;justify-content:center}
+.fig{width:min(100%,15rem);height:auto;display:block}
+.fig .s{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.6}
+.fig .s0{fill:none;stroke:var(--muted);stroke-width:1.4}
+.fig .d{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:4 3}
+.fig .w{stroke:var(--ink);stroke-width:3}
+.fig .l{stroke:var(--accent);stroke-width:3;stroke-linecap:round}
+.fig .dg{stroke:var(--accent);stroke-width:2;stroke-dasharray:5 4;fill:none}
+.fig text{fill:var(--ink);font:11px var(--mono)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:12px;min-height:46px;padding:8px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer;font-size:1rem}
+.opt:hover{border-color:var(--accent);background:var(--accent-soft)}
+.ltr{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--muted);display:grid;place-items:center;font-family:var(--mono);font-size:.82rem;color:var(--muted)}
+.otx{flex:1;min-width:0;overflow-wrap:anywhere}
+.mark{flex:none;width:1.2em;text-align:center;font-weight:700}
+.locked .opt{cursor:default}
+.locked .opt:hover{border-color:var(--line);background:var(--card)}
+.locked .opt.ok{border-color:var(--ok);background:var(--ok-soft)}
+.locked .opt.ok:hover{border-color:var(--ok);background:var(--ok-soft)}
+.locked .opt.bad,.locked .opt.bad:hover{border-color:var(--bad);background:var(--bad-soft)}
+.opt.ok .ltr,.opt.ok .mark{color:var(--ok);border-color:var(--ok)}
+.opt.bad .ltr,.opt.bad .mark{color:var(--bad);border-color:var(--bad)}
+.fb{display:flex;flex-direction:column;gap:6px;padding-top:4px}
+.verdict{display:inline-block;align-self:flex-start;font-weight:600;font-size:.92rem;padding:2px 10px;border-radius:999px}
+.is-ok{background:var(--ok-soft);color:var(--ok)}
+.is-bad{background:var(--bad-soft);color:var(--bad)}
+.why{color:var(--ink);font-size:.98rem;max-width:36rem}
+.res{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.score{font-family:var(--display);font-size:2.6rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.rows{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.row{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.row span:first-child{min-width:0;font-size:.95rem}
+.row .n{font-family:var(--mono);font-size:.85rem;font-variant-numeric:tabular-nums}
+.segs{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.seg{height:8px;border-radius:2px;background:var(--grid)}
+.seg.y{background:var(--ok)}
+.seg.n{background:var(--bad)}
+.btn{all:unset;box-sizing:border-box;align-self:flex-start;cursor:pointer;padding:9px 18px;border-radius:8px;background:var(--accent);color:var(--paper);font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+@media (prefers-reduced-motion:reduce){.fill{transition:none}}
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <p class="eyebrow">EMS · Matemática · Geometría y Medición</p>
+    <h1>Geometría y Medición</h1>
+    <p class="lead">20 preguntas de opción múltiple, 4 por cada uno de los 5 bloques. Resuelve cada una a mano en tu cuaderno y después marca la opción. Al elegir, ves al instante si acertaste y cómo se resuelve. Donde haga falta, usa π ≈ 3,14.</p>
+    <details>
+      <summary>Fórmulas y equivalencias</summary>
+      <ul class="ref">
+        <li>1 m = 100 cm</li>
+        <li>1 m² = 10 000 cm²</li>
+        <li>1 m³ = 1 000 L</li>
+        <li>1 L = 1 000 cm³ = 1 000 mL</li>
+        <li>Triángulo: b × h ÷ 2</li>
+        <li>Trapecio: (B + b) × h ÷ 2</li>
+        <li>Círculo: π × r²</li>
+        <li>Circunferencia: 2 × π × r</li>
+        <li>Prisma y cilindro: área de la base × h</li>
+        <li>Pitágoras: a² + b² = c²</li>
+      </ul>
+    </details>
+  </header>
+
+  <div class="bar" aria-label="Progreso">
+    <div class="stats"><span id="s-ans">Respondidas 0 de 20</span><span id="s-ok">Aciertos 0</span></div>
+    <div class="track"><div class="fill" id="fill"></div></div>
+  </div>
+
+  <main id="app" class="wrap" style="gap:36px"></main>
+
+  <section class="res" id="res" aria-live="polite">
+    <p class="eyebrow">Resultado</p>
+    <p class="score" id="score">0 / 20</p>
+    <p id="resmsg">Responde las 20 preguntas para ver tu resultado por bloque.</p>
+    <ul class="rows" id="rows"></ul>
+    <button type="button" class="btn" id="reset">Volver a empezar</button>
+  </section>
+</div>
+
+<script>
+const FIGS={
+L:`<svg class="fig" viewBox="0 0 180 115" role="img" aria-label="Terreno en L: rectángulo de 15 m por 10 m con una esquina de 6 m por 4 m quitada"><rect class="d" x="102" y="12" width="48" height="32"/><path class="s" d="M30 12H102V44H150V92H30Z"/><text x="90" y="108" text-anchor="middle">15 m</text><text x="26" y="56" text-anchor="end">10 m</text><text x="126" y="8" text-anchor="middle">6 m</text><text x="154" y="32">4 m</text></svg>`,
+C:`<svg class="fig" viewBox="0 0 210 126" role="img" aria-label="Círculo más grande dentro de una lámina rectangular de 50 cm por 30 cm"><rect class="s0" x="44" y="8" width="150" height="90"/><circle class="s" cx="89" cy="53" r="45"/><text x="119" y="116" text-anchor="middle">50 cm</text><text x="40" y="57" text-anchor="end">30 cm</text></svg>`,
+T:`<svg class="fig" viewBox="0 0 224 142" role="img" aria-label="Trapecio de bases 80 cm y 40 cm y altura 60 cm dentro de una lámina de 90 cm por 60 cm"><rect class="s0" x="44" y="10" width="160" height="107"/><path class="s" d="M53 117H195L160 10H88Z"/><text x="124" y="135" text-anchor="middle">90 cm</text><text x="40" y="66" text-anchor="end">60 cm</text><text x="124" y="109" text-anchor="middle">80 cm</text><text x="124" y="28" text-anchor="middle">40 cm</text></svg>`,
+P:`<svg class="fig" viewBox="0 0 216 150" role="img" aria-label="Plaza rectangular de 80 m por 60 m con su diagonal"><rect class="s" x="36" y="10" width="160" height="120"/><line class="dg" x1="36" y1="130" x2="196" y2="10"/><text x="116" y="146" text-anchor="middle">80 m</text><text x="32" y="74" text-anchor="end">60 m</text></svg>`
+};
+
+const BLOCKS=[
+{t:"Desarrollos planos y cuerpos geométricos",qs:[
+ {q:"Un prisma recto tiene por base un triángulo rectángulo de catetos 3 cm y 4 cm. ¿Cuántas caras tiene?",o:["4","5","6","8"],a:1,w:"Un prisma triangular tiene 2 bases triangulares y 3 caras laterales rectangulares: 2 + 3 = 5 caras."},
+ {q:"Un prisma recto de 10 cm de altura tiene por base un triángulo rectángulo de catetos 3 cm y 4 cm. ¿Cuál es su área total?",o:["120 cm²","126 cm²","132 cm²","162 cm²"],a:2,w:"La hipotenusa mide √(3² + 4²) = 5 cm. Las dos bases suman 2 × (3 × 4 ÷ 2) = 12 cm². Las caras laterales suman 3 × 10 + 4 × 10 + 5 × 10 = 120 cm². Total: 132 cm²."},
+ {q:"Una caja con forma de pirámide tiene por base un cuadrado de 6 cm de lado. Cada cara lateral es un triángulo de base 6 cm y altura 5 cm. ¿Cuánto cartón se necesita, sin contar pestañas?",o:["36 cm²","60 cm²","66 cm²","96 cm²"],a:3,w:"Base: 6 × 6 = 36 cm². Cada cara lateral: 6 × 5 ÷ 2 = 15 cm², y son 4, o sea 60 cm². Total: 36 + 60 = 96 cm²."},
+ {q:"Una lata cilíndrica tiene 3 cm de radio y 10 cm de altura. Usa π ≈ 3,14. ¿Cuál es el área total de metal?",o:["188,40 cm²","216,66 cm²","244,92 cm²","301,44 cm²"],a:2,w:"El desarrollo lateral es un rectángulo de 10 cm × (2 × 3,14 × 3 = 18,84 cm) = 188,4 cm². Las dos tapas suman 2 × 3,14 × 3² = 56,52 cm². Total: 244,92 cm²."}
+]},
+{t:"Descomposición de figuras, áreas y porcentajes",qs:[
+ {q:"Un terreno tiene forma de L: es un rectángulo de 15 m × 10 m al que se le quitó, en una esquina, un rectángulo de 6 m × 4 m. ¿Cuál es su área?",fig:"L",o:["126 m²","144 m²","150 m²","174 m²"],a:0,w:"Área del rectángulo completo: 15 × 10 = 150 m². Se resta lo quitado: 6 × 4 = 24 m². Queda 150 − 24 = 126 m²."},
+ {q:"De una lámina rectangular de 50 cm × 30 cm se recorta el círculo más grande posible. Usa π ≈ 3,14. ¿Qué porcentaje de la lámina se utiliza, aproximadamente?",fig:"C",o:["30 %","47 %","63 %","79 %"],a:1,w:"El círculo más grande tiene por diámetro el lado menor, 30 cm, así que su radio es 15 cm. Círculo: 3,14 × 15² = 706,5 cm². Lámina: 50 × 30 = 1 500 cm². 706,5 ÷ 1 500 ≈ 0,471, es decir, cerca de 47 %."},
+ {q:"De una lámina rectangular de 90 cm × 60 cm se recorta un trapecio de bases 80 cm y 40 cm y de altura 60 cm. ¿Qué porcentaje de la lámina se utiliza?",fig:"T",o:["40 %","56 %","67 %","75 %"],a:2,w:"Trapecio: (80 + 40) × 60 ÷ 2 = 3 600 cm². Lámina: 90 × 60 = 5 400 cm². 3 600 ÷ 5 400 ≈ 0,667, o sea 66,7 %, que se aproxima a 67 %."},
+ {q:"Una caja con tapa mide 25 cm × 10 cm × 8 cm y se corta de una cartulina de 60 cm × 40 cm. El sobrante no se reutiliza. ¿Qué porcentaje de la cartulina se utiliza?",o:["25 %","32 %","38 %","44 %"],a:3,w:"Área de la caja: 2 × (25 × 10 + 25 × 8 + 10 × 8) = 2 × (250 + 200 + 80) = 1 060 cm². Cartulina: 60 × 40 = 2 400 cm². 1 060 ÷ 2 400 ≈ 0,44, o sea 44 %."}
+]},
+{t:"Cubrir superficies y estimación",qs:[
+ {q:"El piso de una sala de 3,6 m × 4,5 m se cubre con baldosas cuadradas de 40 cm de lado, colocadas en filas completas. Las baldosas del borde se cortan y los recortes no se reutilizan. ¿Cuántas baldosas hay que comprar?",o:["101","102","108","112"],a:2,w:"A lo largo de 3,6 m entran 3,6 ÷ 0,4 = 9 baldosas. A lo largo de 4,5 m hacen falta 4,5 ÷ 0,4 = 11,25, o sea 12 columnas (la última se corta). 9 × 12 = 108. Dividir las áreas (16,2 ÷ 0,16 = 101,25) da menos, porque supone que los recortes se aprovechan."},
+ {q:"Un patio mide 3,8 m × 4,5 m y se cubre con baldosas de 40 cm × 40 cm que vienen en cajas de 10 baldosas. Se recomienda comprar un 10 % más por cortes y roturas. ¿Cuántas cajas hay que comprar?",o:["11","12","13","14"],a:1,w:"Patio: 3,8 × 4,5 = 17,1 m². Con 10 % más: 18,81 m². Cada baldosa cubre 0,4 × 0,4 = 0,16 m², así que una caja de 10 cubre 1,6 m². 18,81 ÷ 1,6 ≈ 11,76, y como las cajas se compran enteras se redondea hacia arriba: 12 cajas."},
+ {q:"La barraca A vende cajas de 1,5 m² a USD 12,60. La barraca B vende cajas de 2,5 m² a USD 19,50. Para cubrir exactamente 3 m², ¿qué conviene y cuánto cuesta?",o:["Barraca B: 1 caja, USD 19,50","Barraca B: 2 cajas, USD 39,00","Cuesta lo mismo en las dos","Barraca A: 2 cajas, USD 25,20"],a:3,w:"En B una caja cubre solo 2,5 m², no alcanza: hacen falta 2 cajas y se pagan USD 39,00. En A, 3 ÷ 1,5 = 2 cajas exactas, que cuestan 2 × 12,60 = USD 25,20. B es más barata por m² (7,80 contra 8,40), pero como se compran cajas enteras, para 3 m² conviene A."},
+ {q:"Se pinta una pared de 3 m de alto por 7 m de largo que tiene una ventana de 1,5 m × 1,2 m, con 2 manos de pintura. Un litro rinde 8 m² por mano y las latas son de 1 L. ¿Cuántas latas se compran?",o:["3","4","5","6"],a:2,w:"Pared: 3 × 7 = 21 m². Ventana: 1,5 × 1,2 = 1,8 m². Superficie a pintar: 19,2 m². Cada mano usa 19,2 ÷ 8 = 2,4 L, y dos manos usan 4,8 L. Como las latas son de 1 L, se compran 5."}
+]},
+{t:"Teorema de Pitágoras",qs:[
+ {q:"Una escalera de 6,5 m se apoya en una pared con el pie a 2,5 m de ella. ¿A qué altura de la pared llega?",o:["4,0 m","6,0 m","7,0 m","9,0 m"],a:1,w:"La escalera es la hipotenusa: h² + 2,5² = 6,5². Entonces h² = 42,25 − 6,25 = 36, y h = 6 m. (Es la terna 5-12-13 multiplicada por 0,5.)"},
+ {q:"Una pantalla rectangular mide 24 cm de alto y 32 cm de ancho. ¿Cuánto mide su diagonal?",o:["28 cm","36 cm","40 cm","56 cm"],a:2,w:"d² = 24² + 32² = 576 + 1 024 = 1 600, así que d = 40 cm. Son las medidas 3-4-5 multiplicadas por 8."},
+ {q:"¿Cuál de estas ternas de lados corresponde a un triángulo rectángulo?",o:["4 cm, 5 cm y 6 cm","6 cm, 8 cm y 11 cm","7 cm, 8 cm y 10 cm","5 cm, 12 cm y 13 cm"],a:3,w:"Se prueba con el lado mayor como hipotenusa. 5² + 12² = 25 + 144 = 169 = 13², cumple. En las otras no se cumple: 16 + 25 = 41 ≠ 36; 36 + 64 = 100 ≠ 121; 49 + 64 = 113 ≠ 100."},
+ {q:"Una plaza rectangular mide 60 m × 80 m. Mariana la cruza por la diagonal en lugar de rodearla por dos de sus lados. ¿Cuántos metros se ahorra?",fig:"P",o:["20 m","40 m","60 m","140 m"],a:1,w:"Diagonal: √(60² + 80²) = √10 000 = 100 m. Rodeando por dos lados camina 60 + 80 = 140 m. Se ahorra 140 − 100 = 40 m."}
+]},
+{t:"Volumen, unidades y conversiones",qs:[
+ {q:"7 200 cm² equivalen a:",o:["72 m²","7,2 m²","0,72 m²","0,072 m²"],a:2,w:"1 m² = 10 000 cm². Entonces 7 200 cm² = 7 200 ÷ 10 000 = 0,72 m²."},
+ {q:"Una caja sin tapa tiene base cuadrada de 28 cm de lado y 12 cm de altura. ¿Cuántos vasos de 300 mL se llenan completos con su capacidad?",o:["30","31","32","36"],a:1,w:"Volumen: 28 × 28 × 12 = 9 408 cm³. Como 1 cm³ = 1 mL, son 9 408 mL (9,408 L). 9 408 ÷ 300 = 31,36, o sea 31 vasos completos."},
+ {q:"Una pecera tiene forma de prisma de 60 cm × 30 cm de base y 40 cm de altura. Se llena hasta los 3/5 de su altura. ¿Cuántos litros de agua contiene?",o:["43,2 L","48 L","54 L","72 L"],a:0,w:"Capacidad total: 60 × 30 × 40 = 72 000 cm³ = 72 L. Los 3/5 de la altura son los 3/5 del volumen: 72 × 3 ÷ 5 = 43,2 L."},
+ {q:"Un tanque cilíndrico tiene 1,5 m de radio y 1 m de altura. Usa π ≈ 3,14. ¿Cuál es su capacidad?",o:["1 570 L","2 355 L","4 710 L","7 065 L"],a:3,w:"V = π × r² × h = 3,14 × 1,5² × 1 = 3,14 × 2,25 = 7,065 m³. Como 1 m³ = 1 000 L, son 7 065 L."}
+]}
+];
+
+const L="ABCD";
+const flat=[];
+BLOCKS.forEach((b,bi)=>b.qs.forEach(q=>flat.push({...q,b:bi})));
+let state=[];
+const $=id=>document.getElementById(id);
+
+function build(){
+  state=Array(flat.length).fill(null);
+  const app=$("app");
+  let n=0, html="";
+  BLOCKS.forEach((b,bi)=>{
+    html+=`<section class="block"><header class="bh"><p class="eyebrow">Bloque ${bi+1} de ${BLOCKS.length}</p><h2>${b.t}</h2></header><div class="qs">`;
+    b.qs.forEach(q=>{
+      const i=n++;
+      html+=`<article class="q" id="q${i+1}"><p class="qn">Pregunta ${i+1}</p><p class="qt">${q.q}</p>`
+        +(q.fig?`<div class="figbox">${FIGS[q.fig]}</div>`:"")
+        +`<div class="opts" role="group" aria-label="Opciones de la pregunta ${i+1}">`
+        +q.o.map((t,oi)=>`<button type="button" class="opt" data-q="${i}" data-o="${oi}"><span class="ltr">${L[oi]}</span><span class="otx">${t}</span><span class="mark" aria-hidden="true"></span></button>`).join("")
+        +`</div><div class="fb" hidden aria-live="polite"></div></article>`;
+    });
+    html+=`</div></section>`;
+  });
+  app.innerHTML=html;
+  update();
+}
+
+function answer(i,o){
+  if(state[i]!==null) return;
+  state[i]=o;
+  const q=flat[i], card=$("q"+(i+1)), right=o===q.a;
+  card.querySelector(".opts").classList.add("locked");
+  card.querySelectorAll(".opt").forEach(btn=>{
+    const k=+btn.dataset.o, mk=btn.querySelector(".mark");
+    btn.setAttribute("aria-disabled","true");
+    if(k===q.a){btn.classList.add("ok");mk.textContent="✓";}
+    else if(k===o){btn.classList.add("bad");mk.textContent="✗";}
+  });
+  const fb=card.querySelector(".fb");
+  fb.hidden=false;
+  fb.innerHTML=`<p class="verdict ${right?"is-ok":"is-bad"}">${right?"Correcto":"Incorrecto. La respuesta es la "+L[q.a]}</p><p class="why">${q.w}</p>`;
+  update();
+}
+
+function update(){
+  const total=flat.length;
+  const done=state.filter(v=>v!==null).length;
+  const ok=state.filter((v,i)=>v===flat[i].a).length;
+  $("s-ans").textContent=`Respondidas ${done} de ${total}`;
+  $("s-ok").textContent=`Aciertos ${ok}`;
+  $("fill").style.width=(done/total*100)+"%";
+  $("score").textContent=`${ok} / ${total}`;
+  let msg="Responde las 20 preguntas para ver tu resultado por bloque.";
+  if(done===total){
+    msg= ok>=17 ? "Muy buen manejo del tema. Revisa las explicaciones de lo que falló."
+       : ok>=12 ? "Vas bien. Repasa los bloques con menos aciertos y vuelve a intentarlo."
+       : "Conviene repasar. Vuelve a los ejercicios de los bloques con menos aciertos y resuélvelos a mano.";
+  }
+  $("resmsg").textContent=msg;
+  $("rows").innerHTML=BLOCKS.map((b,bi)=>{
+    const idx=flat.map((q,i)=>q.b===bi?i:-1).filter(i=>i>=0);
+    const good=idx.filter(i=>state[i]===flat[i].a).length;
+    const segs=idx.map(i=>`<span class="seg ${state[i]===null?"":(state[i]===flat[i].a?"y":"n")}"></span>`).join("");
+    return `<li class="row"><span>${bi+1}. ${b.t}</span><span class="n">${good} / ${idx.length}</span><span class="segs">${segs}</span></li>`;
+  }).join("");
+}
+
+$("app").addEventListener("click",e=>{
+  const btn=e.target.closest(".opt");
+  if(btn) answer(+btn.dataset.q,+btn.dataset.o);
+});
+$("reset").addEventListener("click",()=>{build();window.scrollTo({top:0});});
+build();
+</script>

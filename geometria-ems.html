@@ -88,7 +88,7 @@ summary:focus-visible,.opt:focus-visible,.btn:focus-visible{outline:3px solid va
 .otx{flex:1;min-width:0;overflow-wrap:anywhere}
 .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
 .opt.sel .ltr{background:var(--accent);border-color:var(--accent);color:var(--paper)}
-.nav{display:flex;justify-content:space-between;gap:12px}
+.nav{display:flex;justify-content:flex-end;gap:12px}
 .btn{all:unset;box-sizing:border-box;cursor:pointer;padding:10px 20px;border:1.5px solid var(--accent);border-radius:8px;background:var(--accent);color:var(--paper);font-weight:600;text-align:center}
 .btn:hover{filter:brightness(1.08)}
 .btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
@@ -130,7 +130,7 @@ summary:focus-visible,.opt:focus-visible,.btn:focus-visible{outline:3px solid va
     <p class="lead">20 preguntas de opción múltiple, 4 por cada uno de los 5 bloques. Se muestra una pregunta por pantalla.</p>
     <ul class="rules">
       <li>Resuelve cada pregunta a mano en tu cuaderno y después marca una opción.</li>
-      <li>Puedes volver atrás y cambiar una respuesta antes de terminar.</li>
+      <li>Como en la prueba real, no se puede volver atrás: al pasar a la siguiente pregunta, la respuesta queda fija.</li>
       <li>Las correcciones y el puntaje aparecen recién al final.</li>
       <li>Donde haga falta, usa π ≈ 3,14.</li>
     </ul>
@@ -154,7 +154,7 @@ summary:focus-visible,.opt:focus-visible,.btn:focus-visible{outline:3px solid va
         <div class="opts" id="opts" role="group" aria-label="Opciones"></div>
       </article>
       <div class="nav">
-        <button type="button" class="btn ghost" id="prev">Anterior</button>
+        
         <button type="button" class="btn" id="next" disabled>Siguiente</button>
       </div>
       <p class="hint" id="hint" aria-live="polite"></p>
@@ -245,7 +245,7 @@ function paint(){
     btn.setAttribute("aria-pressed",on?"true":"false");
   });
   $("next").disabled=(ans[cur]===null);
-  $("hint").textContent=(ans[cur]===null)?"Elige una opción para continuar.":"";
+  $("hint").textContent=(ans[cur]===null)?"Elige una opción para continuar.":"Al pasar a la siguiente no podrás volver a esta pregunta.";
 }
 
 function renderQ(){
@@ -257,7 +257,7 @@ function renderQ(){
   $("figbox").hidden=!q.fig;
   $("figbox").innerHTML=q.fig?FIGS[q.fig]:"";
   $("opts").innerHTML=q.o.map((t,oi)=>`<button type="button" class="opt" data-o="${oi}" aria-pressed="false"><span class="ltr">${L[oi]}</span><span class="otx">${t}</span></button>`).join("");
-  $("prev").disabled=(cur===0);
+  
   $("next").textContent=(cur===TOTAL-1)?"Terminar":"Siguiente";
   paint();
 }
@@ -306,7 +306,7 @@ function finish(){
 
 $("go").addEventListener("click",begin);
 $("reset").addEventListener("click",()=>{show("start");});
-$("prev").addEventListener("click",()=>go(-1));
+
 $("next").addEventListener("click",()=>go(1));
 $("opts").addEventListener("click",e=>{
   const btn=e.target.closest(".opt");

@@ -180,7 +180,7 @@ summary:focus-visible,.opt:focus-visible,.btn:focus-visible{outline:3px solid va
 </div>
 
 <script>
-const REF=["1 m = 100 cm","1 m² = 10 000 cm²","1 m³ = 1 000 L","1 L = 1 000 cm³ = 1 000 mL","Triángulo: b × h ÷ 2","Trapecio: (B + b) × h ÷ 2","Círculo: π × r²","Circunferencia: 2 × π × r","Prisma y cilindro: área de la base × h","Pitágoras: a² + b² = c²"];
+const REF=["1 m = 100 cm","1 m² = 10 000 cm²","1 m³ = 1 000 L","1 L = 1 000 cm³ = 1 000 mL","Triángulo: b × h ÷ 2","Trapecio: (B + b) × h ÷ 2","Círculo: π × r²","Circunferencia: 2 × π × r","Prisma y cilindro: área de la base × h","Pirámide: área de la base × h ÷ 3","Pitágoras: a² + b² = c²"];
 
 const FIGS={
 L:`<svg class="fig" viewBox="0 0 180 115" role="img" aria-label="Terreno en L: rectángulo de 15 m por 10 m con una esquina de 6 m por 4 m quitada"><rect class="d" x="102" y="12" width="48" height="32"/><path class="s" d="M30 12H102V44H150V92H30Z"/><text x="90" y="108" text-anchor="middle">15 m</text><text x="26" y="56" text-anchor="end">10 m</text><text x="126" y="8" text-anchor="middle">6 m</text><text x="154" y="32">4 m</text></svg>`,
@@ -214,11 +214,11 @@ const BLOCKS=[
  {q:"¿Cuál de estas ternas de lados corresponde a un triángulo rectángulo?",o:["5 cm, 8 cm y 10 cm","6 cm, 9 cm y 11 cm","7 cm, 24 cm y 25 cm","10 cm, 11 cm y 15 cm"],a:2,w:"Se prueba con el lado mayor como hipotenusa. 7² + 24² = 49 + 576 = 625 = 25², cumple. En las otras no se cumple: 25 + 64 = 89 ≠ 100; 36 + 81 = 117 ≠ 121; 100 + 121 = 221 ≠ 225."},
  {q:"Un parque rectangular mide 24 m × 70 m. Diego lo cruza por la diagonal en lugar de rodearlo por dos de sus lados. ¿Cuántos metros se ahorra?",fig:"P",o:["10 m","20 m","74 m","94 m"],a:1,w:"Diagonal: √(24² + 70²) = √5 476 = 74 m. Rodeando por dos lados camina 24 + 70 = 94 m. Se ahorra 94 − 74 = 20 m."}
 ]},
-{t:"Volumen, unidades y conversiones",qs:[
- {q:"0,35 m² equivalen a:",o:["35 cm²","350 cm²","3 500 cm²","35 000 cm²"],a:2,w:"1 m² = 10 000 cm². Entonces 0,35 m² = 0,35 × 10 000 = 3 500 cm²."},
- {q:"Una caja sin tapa tiene base cuadrada de 28 cm de lado y 12 cm de altura. ¿Cuántos vasos de 300 mL se llenan completos con su capacidad?",o:["30","31","32","36"],a:1,w:"Volumen: 28 × 28 × 12 = 9 408 cm³. Como 1 cm³ = 1 mL, son 9 408 mL (9,408 L). 9 408 ÷ 300 = 31,36, o sea 31 vasos completos."},
- {q:"Una pecera tiene forma de prisma de 60 cm × 30 cm de base y 40 cm de altura. Se llena hasta los 3/5 de su altura. ¿Cuántos litros de agua contiene?",o:["43,2 L","48 L","54 L","72 L"],a:0,w:"Capacidad total: 60 × 30 × 40 = 72 000 cm³ = 72 L. Los 3/5 de la altura son los 3/5 del volumen: 72 × 3 ÷ 5 = 43,2 L."},
- {q:"Un tanque cilíndrico tiene 1,5 m de radio y 1 m de altura. Usa π ≈ 3,14. ¿Cuál es su capacidad?",o:["1 570 L","2 355 L","4 710 L","7 065 L"],a:3,w:"V = π × r² × h = 3,14 × 1,5² × 1 = 3,14 × 2,25 = 7,065 m³. Como 1 m³ = 1 000 L, son 7 065 L."}
+{t:"Volumen de cuerpos geométricos",qs:[
+ {q:"Una caja de zapatos con forma de prisma rectangular mide 30 cm × 18 cm × 12 cm. ¿Cuál es su volumen?",o:["60 cm³","2 232 cm³","3 240 cm³","6 480 cm³"],a:3,w:"Volumen del prisma: largo × ancho × alto = 30 × 18 × 12 = 6 480 cm³. Sumar las medidas (60) o calcular el área total (2 232) no da el volumen."},
+ {q:"Un cubo tiene 6 cm de arista. ¿Cuántos cubitos de 2 cm de arista entran en él, sin que sobre espacio?",o:["9","27","36","54"],a:1,w:"Volumen del cubo grande: 6³ = 216 cm³. Volumen de cada cubito: 2³ = 8 cm³. 216 ÷ 8 = 27. También: a lo largo de cada arista entran 6 ÷ 2 = 3 cubitos, y 3 × 3 × 3 = 27."},
+ {q:"Una pirámide tiene por base un cuadrado de 9 cm de lado y su altura es de 10 cm. ¿Cuál es su volumen?",o:["90 cm³","180 cm³","270 cm³","810 cm³"],a:2,w:"V = área de la base × altura ÷ 3 = 9 × 9 × 10 ÷ 3 = 810 ÷ 3 = 270 cm³. Sin dividir entre 3 se obtiene 810 cm³, el volumen del prisma de igual base y altura."},
+ {q:"Un cilindro tiene 5 cm de radio y 12 cm de altura. Usa π ≈ 3,14. ¿Cuál es su volumen?",o:["942 cm³","1 884 cm³","3 768 cm³","4 710 cm³"],a:0,w:"V = π × r² × h = 3,14 × 5² × 12 = 3,14 × 25 × 12 = 942 cm³. Si se usa el diámetro (10 cm) como radio se obtiene 3 768 cm³."}
 ]}
 ];
 
